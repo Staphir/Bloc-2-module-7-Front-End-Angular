@@ -10,13 +10,33 @@
 </div>
 
 @for (pokemon of pokemonList; track pokemon.id) {
-  <app-pokemon-item [pokemon]="pokemon" [removed]="true"></app-pokemon-item>
+  <app-pokemon-item
+    [pokemon]="pokemon"
+    [removed]="true"
+    (removePokemonName)="onRemovePokemon($event)"
+  ></app-pokemon-item>
 } @empty {
   <div class="my-2">No pokemon added</div>
 }
 
-@if (removedPokemonName) {
-  <ngb-toast class="app-notif" header="I can be closed!">
-    Pokemon {{ removedPokemonName }} removed
+@if (addPokemon) {
+  <ngb-toast
+    class="app-notif"
+    (hidden)="addPokemon = false"
+    [autohide]="true"
+    [delay]="3000"
+  >
+    Pokemon {{ currentPokemonNameInput.value }} added
+  </ngb-toast>
+}
+
+@if (removePokemon) {
+  <ngb-toast
+    class="app-notif"
+    (hidden)="removePokemon = false"
+    [autohide]="true"
+    [delay]="3000"
+  >
+    Pokemon {{ removePokemonName }} removed
   </ngb-toast>
 }

@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Pokemon} from '../../interfaces/pokemon';
 import {PokemonService} from '../../services/pokemon-service';
 import {HighlightBackgroundColor} from '../../directives/highlight-background-color';
@@ -14,6 +14,7 @@ import {HighlightBackgroundColor} from '../../directives/highlight-background-co
 export class PokemonItem {
   @Input() pokemon?: Pokemon;
   @Input() removed?: boolean;
+  @Output() removePokemonName = new EventEmitter<string>();
 
   constructor(private pokemonService: PokemonService) {
   }
@@ -21,5 +22,6 @@ export class PokemonItem {
   onRemovePokemon() {
     if (!this.pokemon) return;
     this.pokemonService.removePokemon(this.pokemon.id);
+    this.removePokemonName.emit(this.pokemon.name)
   }
 }

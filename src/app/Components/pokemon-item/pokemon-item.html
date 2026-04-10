@@ -10,6 +10,7 @@
     <div class="col-7 d-flex align-items-center">
       {{ pokemon.name }}
     </div>
+
     @if (removed) {
       <div class="col-2">
         <button (click)="onRemovePokemon()" class="btn btn-danger">

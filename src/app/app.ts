@@ -1,6 +1,5 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import {PokemonItem} from './Components/pokemon-item/pokemon-item';
 import {PokemonList} from './Components/pokemon-list/pokemon-list';
 import {
   NgbNav,

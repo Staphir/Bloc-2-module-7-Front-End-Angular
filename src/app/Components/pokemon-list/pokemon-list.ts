@@ -12,13 +12,21 @@ import {Pokemon} from '../../interfaces/pokemon';
   styleUrl: './pokemon-list.scss',
 })
 export class PokemonList implements AfterViewInit{
-  removedPokemonName?: string;
+  addPokemon = false;
   pokemonList?: Pokemon[];
+  removePokemon = false;
+  removePokemonName = '';
   @ViewChild('currentPokemonNameInput') currentPokemonNameInput?: ElementRef;
 
   onAddButtonClick() {
     if(!this.currentPokemonNameInput) return;
     this.pokemonService.addPokemon(this.currentPokemonNameInput.nativeElement.value);
+    this.addPokemon = true
+  }
+
+  onRemovePokemon(pokemonName: string) {
+    this.removePokemonName = pokemonName;
+    this.removePokemon = true;
   }
 
   constructor(private pokemonService: PokemonService) {
@@ -27,5 +35,4 @@ export class PokemonList implements AfterViewInit{
   ngAfterViewInit(): void {
     this.pokemonList = this.pokemonService.pokemonList;
   }
-
 }
