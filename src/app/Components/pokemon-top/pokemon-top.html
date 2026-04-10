@@ -1,0 +1,7 @@
+<h3>Top Pokémons</h3>
+
+@for (pokemon of pokemonList | slice:0:3; track pokemon.id) {
+  <app-pokemon-item [pokemon]="pokemon"></app-pokemon-item>
+} @empty {
+  <div class="my-2">No pokemon added</div>
+}

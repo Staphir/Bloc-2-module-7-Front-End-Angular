@@ -1,0 +1,21 @@
+@if (pokemon) {
+  <div
+    class="p-3 pokemon-{{pokemon.sexe}} row pokemon-item-container"
+    [appHighlightBackgroundColor]="pokemon.sexe === 'male' ? 'blue' : 'pink'"
+    [highlightColor]="pokemon.sexe === 'male' ? 'darkblue' : 'hotpink'"
+  >
+    <div class="col-1 d-flex align-items-center">
+      {{ pokemon.id }}
+    </div>
+    <div class="col-7 d-flex align-items-center">
+      {{ pokemon.name }}
+    </div>
+    @if (removed) {
+      <div class="col-2">
+        <button (click)="onRemovePokemon()" class="btn btn-danger">
+          Remove
+        </button>
+      </div>
+    }
+  </div>
+}

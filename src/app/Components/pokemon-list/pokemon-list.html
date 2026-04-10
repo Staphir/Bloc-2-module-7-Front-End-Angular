@@ -1,0 +1,22 @@
+<h3>Pokémons</h3>
+
+<div class="row pb-3">
+  <div class="col-8">
+    <input class="form-control" type="text" #currentPokemonNameInput/>
+  </div>
+  <div class="col-2">
+    <button (click)="onAddButtonClick()" class="btn btn-primary">Add</button>
+  </div>
+</div>
+
+@for (pokemon of pokemonList; track pokemon.id) {
+  <app-pokemon-item [pokemon]="pokemon" [removed]="true"></app-pokemon-item>
+} @empty {
+  <div class="my-2">No pokemon added</div>
+}
+
+@if (removedPokemonName) {
+  <ngb-toast class="app-notif" header="I can be closed!">
+    Pokemon {{ removedPokemonName }} removed
+  </ngb-toast>
+}
