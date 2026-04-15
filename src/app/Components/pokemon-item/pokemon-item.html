@@ -3,6 +3,8 @@
     class="p-3 pokemon-{{pokemon.sexe}} row pokemon-item-container"
     [appHighlightBackgroundColor]="pokemon.sexe === 'male' ? 'blue' : 'pink'"
     [highlightColor]="pokemon.sexe === 'male' ? 'darkblue' : 'hotpink'"
+    (click)="settable && onSelectPokemon()"
+    [style.cursor]="settable ? 'pointer' : 'default'"
   >
     <div class="col-1 d-flex align-items-center">
       {{ pokemon.id }}
@@ -18,5 +20,6 @@
         </button>
       </div>
     }
+
   </div>
 }

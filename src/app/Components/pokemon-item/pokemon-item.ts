@@ -14,7 +14,9 @@ import {HighlightBackgroundColor} from '../../directives/highlight-background-co
 export class PokemonItem {
   @Input() pokemon?: Pokemon;
   @Input() removed?: boolean;
+  @Input() settable?: boolean;
   @Output() removePokemonName = new EventEmitter<string>();
+  @Output() selectPokemon = new EventEmitter<Pokemon>();
 
   constructor(private pokemonService: PokemonService) {
   }
@@ -23,5 +25,10 @@ export class PokemonItem {
     if (!this.pokemon) return;
     this.pokemonService.removePokemon(this.pokemon.id);
     this.removePokemonName.emit(this.pokemon.name)
+  }
+
+  onSelectPokemon() {
+    if (!this.pokemon) return;
+    this.selectPokemon.emit(this.pokemon);
   }
 }

@@ -1,0 +1,13 @@
+@if (selectedPokemon) {
+  <h4>Pokemon {{selectedPokemon.id}}</h4>
+  <div class="form-group mb-3">
+    <label class="form-label" for="pokemon-name">Name</label>
+    <input class="form-control" id="pokemon-name" type="text" value="{{selectedPokemon.name}}" #pokemonNameInput />
+    <select class="form-select mt-2" id="pokemon-sexe" #pokemonSexeSelect>
+      <option value="male" [selected]="selectedPokemon.sexe === 'male'">Male</option>
+      <option value="female" [selected]="selectedPokemon.sexe === 'female'">Female</option>
+    </select>
+    <button class="btn btn-primary" (click)="onUpdatePokemon()">Update</button>
+  </div>
+}
+

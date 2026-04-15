@@ -1,30 +1,48 @@
-import {Directive, ElementRef, HostBinding, HostListener, Input, OnInit, Renderer2} from '@angular/core';
+import {Directive, ElementRef, HostBinding, HostListener, Input, OnInit, effect, signal, Renderer2} from '@angular/core';
 
+//test Angular plus récent avec signals
 @Directive({
   selector: '[appHighlightBackgroundColor]'
 })
-export class HighlightBackgroundColor implements OnInit{
-  @Input('appHighlightBackgroundColor') defaultColor?: string;
-  @Input() highlightColor?: string;
+export class HighlightBackgroundColor implements OnInit {
+  @Input() set appHighlightBackgroundColor(color: string | undefined) {
+    this.defaultColor.set(color);
+  }
+  @Input() set highlightColor(color: string | undefined) {
+    this._highlightColor.set(color);
+  }
+
+  private defaultColor = signal<string | undefined>(undefined);
+  private _highlightColor = signal<string | undefined>(undefined);
+  private isHovering = signal(false);
 
   @HostListener('mouseenter') onMouseEnter() {
-    if (!this.highlightColor) return;
-    this.backgroundColor = this.highlightColor;
+    this.isHovering.set(true);
+    if (this._highlightColor()) {
+      this.backgroundColor = this._highlightColor() || '';
+    }
   }
 
   @HostListener('mouseleave') onMouseLeave() {
-    if (!this.defaultColor) return;
-    this.backgroundColor = this.defaultColor;
+    this.isHovering.set(false);
+    this.updateBackgroundColor();
   }
 
-  @HostBinding('style.background-color') backgroundColor = this.defaultColor;
+  @HostBinding('style.background-color') backgroundColor = '';
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2) {
     this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'pink');
+
+    effect(() => {
+      this.updateBackgroundColor();
+    });
   }
 
   ngOnInit(): void {
-        this.backgroundColor = this.defaultColor;
-    }
+    this.updateBackgroundColor();
+  }
 
+  private updateBackgroundColor(): void {
+    this.backgroundColor = this.defaultColor() || '';
+  }
 }

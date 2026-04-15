@@ -21,4 +21,8 @@ export class PokemonService {
         pokemon.id = id + 1;
       });
   }
+
+  updatePokemon(pokemon: Pokemon) {
+    this.pokemonList[pokemon.id - 1] = pokemon;
+  }
 }
